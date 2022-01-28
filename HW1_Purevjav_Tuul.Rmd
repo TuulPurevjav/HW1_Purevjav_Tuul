@@ -1,6 +1,6 @@
 ---
 title: "HW1"
-author: "Tuul Purevjav"
+author: "Tuul Purevjavv"
 date: "1/27/2022"
 output: html_document
 knit: (function(input_file, encoding) {
