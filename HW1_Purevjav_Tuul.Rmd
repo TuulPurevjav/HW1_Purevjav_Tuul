@@ -1,5 +1,5 @@
 ---
-title: "HW1"
+title: "STAA 566 HW1"
 author: "Tuul Purevjav"
 date: "1/27/2022"
 output: html_document
@@ -14,27 +14,26 @@ knit: (function(input_file, encoding) {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+My husband and I are putting our house on the market in a few months.  To get a general idea of the housing market in where I live, I located this graph at https://fred.stlouisfed.org/series/AVELISPRI49049 via Google Dataset Search. I downloaded the CVS data and tried to visualize it in a similar way.
 
 ```{r}
-#Hello World!
-#Hello World again!
+library(ggplot2)
+library(ggthemes)
+data1 <- read.csv("AVELISPRI49049.csv")
 ```
 
-```{r cars}
-summary(cars)
+```{r}
+p_data1 <- ggplot(data = data1, mapping = aes(x = as.Date(DATE), y = AVELISPRI49049)) +
+  geom_line(color = "steelblue") +
+  theme_minimal(base_size=12, base_family = "sans") +
+  scale_y_log10() + scale_y_continuous(trans = "log10", 
+                                        labels = scales::dollar_format(), 
+                                        breaks = seq(400000, 1200000, by = 100000)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%b %Y")+
+  ylab("U.S. Dollars") + 
+  xlab("Years")+ 
+  labs(title = "Average Home Listing Price in Utah County, UT")
+p_data1
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
